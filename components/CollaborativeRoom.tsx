@@ -18,7 +18,7 @@ const CollaborativeRoom = ({ roomId, roomMetadata, users, currentUserType }: Col
   const [loading, setLoading] = useState(false);
 
   const containerRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null); // Change the type to HTMLInputElement
 
   const updateTitleHandler = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if(e.key === 'Enter') {
@@ -76,7 +76,7 @@ const CollaborativeRoom = ({ roomId, roomMetadata, users, currentUserType }: Col
                   placeholder="Enter title"
                   onChange={(e) => setDocumentTitle(e.target.value)}
                   onKeyDown={updateTitleHandler}
-                  disable={!editing}
+                  disabled={!editing} // Changed 'disable' to 'disabled'
                   className="document-title-input"
                 />
               ) : (
