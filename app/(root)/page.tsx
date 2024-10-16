@@ -13,7 +13,12 @@ import { redirect } from 'next/navigation';
 
 const Home = async () => {
   const clerkUser = await currentUser();
-  if(!clerkUser) redirect('/sign-in');
+  if (!clerkUser) {
+    // Handle the case where clerkUser is not found
+    console.warn("No user found, redirecting to sign-in...");
+    redirect('/sign-in');
+    return; // Make sure to exit the function after redirect
+  }
 
   const roomDocuments = await getDocuments(clerkUser.emailAddresses[0].emailAddress);
 
