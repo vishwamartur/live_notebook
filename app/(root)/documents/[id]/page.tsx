@@ -8,15 +8,27 @@ const Document = async ({ params: { id } }: SearchParamProps) => {
   const clerkUser = await currentUser();
   if(!clerkUser) redirect('/sign-in');
 
-  const room = await getDocument({
-    roomId: id,
-    userId: clerkUser.emailAddresses[0].emailAddress,
-  });
+  let room;
+  try {
+    room = await getDocument({
+      roomId: id,
+      userId: clerkUser.emailAddresses[0].emailAddress,
+    });
+  } catch (error) {
+    console.error("Error fetching document:", error);
+    return <div>Error loading document. Please try again later.</div>;
+  }
 
   if(!room) redirect('/');
 
-  const userIds = Object.keys(room.usersAccesses);
-  const users = await getClerkUsers({ userIds });
+  let users;
+  try {
+    const userIds = Object.keys(room.usersAccesses);
+    users = await getClerkUsers({ userIds });
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    return <div>Error loading user data. Please try again later.</div>;
+  }
 
   const usersData = users.map((user: User) => ({
     ...user,
