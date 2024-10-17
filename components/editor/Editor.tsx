@@ -27,7 +27,7 @@ import Comments from '../Comments';
 import { DeleteModal } from '../DeleteModal';
 
 function Placeholder() {
-  return <div className="editor-placeholder">Start typing or use '/' for commands...</div>;
+  return <div className="editor-placeholder">Start typing or use &apos;/&apos; for commands...</div>;
 }
 
 export function Editor({ roomId, currentUserType }: { roomId: string, currentUserType: UserType }) {
